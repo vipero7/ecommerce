@@ -1,0 +1,35 @@
+{% extends 'account/admin/base.html' %}
+{% load static %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    <form action="." method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <label>Product Name:</label>
+            {{ form.name }}
+            <br>
+            <label>Category:</label>
+            {{ form.category }}
+            <br>
+            <label>Price:</label>
+            {{ form.price }}
+            <br>
+            <label>Available:</label>
+            {{ form.available }}
+            <br>
+            <label>Image:</label>
+            {{ form.image }}
+            <br>
+            <label>Description:</label>
+            <br>
+            {{ form.description}}
+            <br>
+            <br>
+        </div>
+        <div>
+            <input type="submit" value="ADD" class="btn btn-primary">
+        </div>
+    </form>
+    
+{% endblock %}

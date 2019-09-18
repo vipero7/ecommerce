@@ -23,15 +23,15 @@
             <tbody align="center">
                 {% for product in products %}
                 <tr>
-                    <td>{{ product.id }}</td>
+                    <td>{{ forloop.counter }}</td>
                     <td>{{ product.name }}</td>
                     <td>{{ product.category }}</td>
-                    <td><a href="{{ product.get_absolute_url }}"><img src="{{ product.image.url }}" height="100px" width="100px"></a></td>
+                    <td><img src="{{ product.image.url }}" height="100px" width="100px"></td>
                     <td>{{ product.price }}</td>
                     <td>{{ product.description }}</td>
                     <td>{{ product.available }}</td>
-                    <td><a href="{{ product.get_absolute_url}}edit" class="btn btn-primary">Edit</a></td>
-                    <td><a href="{{ product.get_absolute_url}}delete" class="btn btn-danger">Delete</a></td>
+                    <td><a href="{{ product.id }}/edit" class="btn btn-primary">Edit</a></td>
+                    <td><a href="{{ product.id }}/delete" class="btn btn-danger">Delete</a></td>
                     </td>
                 </tr>
                 {% endfor %}
