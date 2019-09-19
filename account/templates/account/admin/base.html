@@ -49,29 +49,29 @@
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
                             <li class="has-sub">
-                                    <a class="js-arrow" href="#">
-                                        <i class="fas fa-copy"></i>Products</a>
-                                    <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                        <li>
-                                            <a href="{% url 'product:product_list' %}">List</a>
-                                        </li>
-                                        <li>
-                                            <a href="{% url 'product:add_product' %}">Add</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                        <li>
-                            <a href="chart.html">
-                                <i class="fas fa-chart-bar"></i>Charts</a>
-                        </li>
-                        <li>
-                            <a href="table.html">
-                                <i class="fas fa-table"></i>Tables</a>
-                        </li>
-                        <li>
-                            <a href="form.html">
-                                <i class="far fa-check-square"></i>Forms</a>
-                        </li>
+                                <a class="js-arrow" href="#">
+                                    <i class="fas fa-copy"></i>Products</a>
+                                <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                    <li>
+                                        <a href="{% url 'product:product_list' %}">List</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'product:add_product' %}">Add</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="has-sub">
+                                <a class="js-arrow" href="#">
+                                    <i class="fas fa-copy"></i>Categories</a>
+                                <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                    <li>
+                                        <a href="{% url 'product:category_list' %}">List</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'product:add_category' %}">Add</a>
+                                    </li>
+                                </ul>
+                            </li> 
                     </ul>
                 </nav>
             </div>

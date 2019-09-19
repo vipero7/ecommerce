@@ -1,0 +1,17 @@
+{% extends 'account/admin/base.html' %}
+{% load static %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<form action="/product/categories/{{ category.id }}/update" method="POST">
+    <div>
+        <label>Category Name:</label>
+        {{ form.name }}
+        <br>
+        {% csrf_token %}
+    </div>
+    <div>
+        <input type="submit" value="UPDATE" class="btn btn-primary">
+    </div>
+</form>
+{% endblock %}
