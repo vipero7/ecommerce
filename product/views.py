@@ -1,20 +1,19 @@
 from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from .forms import AddCategoryForm, AddProductForm, ProductEditForm
-from account.views import user_login
 from product.models import Category, Product
-
-
+from django.contrib.admin.views.decorators import staff_member_required
 #Home View
 def home(request):
-    return render(request, 'account/user/home.html')
+    return render(request, 'account/home.html')
 
 
 #Category Views
+@staff_member_required(login_url='/account')
 def category_list(request):
     categories = Category.objects.all()
     return render(request, 'account/admin/category_list.html', {'categories': categories})
 
-
+@staff_member_required(login_url='/account')
 def add_category(request):
     if request.method == 'POST':
         form = AddCategoryForm(request.POST)
@@ -27,11 +26,14 @@ def add_category(request):
         form = AddCategoryForm()
     return render(request, 'account/admin/add_category.html', {'form': form})
 
+@staff_member_required(login_url='/account')
 def edit_category(request, id):
     category = get_object_or_404(Category, id=id)
     form = AddCategoryForm(instance=category)
     return render(request, 'account/admin/edit_category.html', {'form': form, 'category': category})
 
+
+@staff_member_required(login_url='/account')
 def update_category(request, id):
     category = Category.objects.get(id=id)
     form = AddCategoryForm(request.POST, instance=category)
@@ -40,7 +42,7 @@ def update_category(request, id):
         return redirect('product:category_list')
     return render(request, 'account/admin/edit_category.html', {'form': form, 'category': category})
 
-
+@staff_member_required(login_url='/account')
 def delete_category(request, id):
     category = Category.objects.get(id=id)
     category.delete()
@@ -48,10 +50,12 @@ def delete_category(request, id):
         
 
 # Product Views.
+@staff_member_required(login_url='/account')
 def product_list(request):
     products = Product.objects.all()
     return render(request, 'account/admin/product_list.html', {'products': products})
-    
+
+@staff_member_required(login_url='/account')
 def add_product(request):
     if request.method == 'POST':
         form = AddProductForm(request.POST, request.FILES)
@@ -62,12 +66,14 @@ def add_product(request):
         form = AddProductForm()
     return render(request, 'account/admin/add_product.html', {'form': form})
 
+@staff_member_required(login_url='/account')
 def edit_product(request, id):
     product = get_object_or_404(Product, id=id)
     form = AddProductForm(instance=product)
     return render(request, 'account/admin/edit_product.html', {'form': form, 'product': product})
 
 
+@staff_member_required(login_url='/account')
 def update_product(request, id):
 	product = Product.objects.get(id=id)
 	form = AddProductForm(request.POST, request.FILES, instance=product)
@@ -76,6 +82,8 @@ def update_product(request, id):
 		return redirect('product:product_list')
 	return render(request, 'account/admin/edit_product.html', {'product': product})
 
+
+@staff_member_required(login_url='/account')
 def delete_product(request, id):
     product = Product.objects.get(id=id)
     product.delete()

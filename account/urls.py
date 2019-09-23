@@ -4,6 +4,7 @@ from .import views
 app_name = 'account'
 
 urlpatterns = [
-    path('', views.user_login, name='user_login'),
-    path('logout/', views.user_logout, name='user_logout'),
+    path('', views.admin_dashboard, name='admin_dashboard'),
+    path('admin/login/', views.admin_login, name='admin_login'),
+    path('admin/logout/', views.admin_logout, name='admin_logout'),
 ]

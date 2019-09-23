@@ -17,11 +17,15 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from product import views
+from product.views import home
+from account.views import user_login, user_logout, user_registration
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home, name='home'),
+    path('', home, name='home'),
+    path('login/', user_login, name='user_login'),
+    path('logout/', user_logout, name='user_logout'),
+    path('register/', user_registration, name='user_registration'),
     path('account/', include('account.urls', namespace='account')),
     path('product/', include('product.urls', namespace='product')),
 ]
