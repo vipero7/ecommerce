@@ -54,4 +54,4 @@ class ProductEditForm(forms.ModelForm):
                     'style': 'border-color:black',
                 }
             ),
-        }  
+        }

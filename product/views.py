@@ -2,9 +2,12 @@ from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from .forms import AddCategoryForm, AddProductForm, ProductEditForm
 from product.models import Category, Product
 from django.contrib.admin.views.decorators import staff_member_required
+import pdb
 #Home View
 def home(request):
-    return render(request, 'account/home.html')
+    products = Product.objects.all()
+    categories = Category.objects.all()
+    return render(request, 'account/home.html', {'products': products, 'categories': categories})
 
 
 #Category Views
@@ -88,3 +91,9 @@ def delete_product(request, id):
     product = Product.objects.get(id=id)
     product.delete()
     return redirect('product:product_list')
+
+
+def product_detail(request, product):
+    product = get_object_or_404(Product, name=product)
+    return render(request, 'account/product_detail.html', {'product': product})
+

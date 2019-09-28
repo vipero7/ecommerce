@@ -1,8 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
-from .forms import LoginForm, UserLoginForm, UserRegisterForm
+from .forms import LoginForm, UserLoginForm, UserRegisterForm, UserEditForm, ProfileEditForm
 from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import login_required
+from .models import Profile
+from django.contrib.auth.models import User
 import pdb
 # Create your views here.
 
@@ -79,7 +82,15 @@ def user_registration(request):
             new_user.set_password(user_form.cleaned_data['password'])
             new_user.save()
             login(request, new_user)
+            Profile.objects.create(user=new_user)
             return redirect('home')
     else:
         user_form = UserRegisterForm()
     return render(request, 'account/login.html', {'user_form': user_form})
+
+
+@login_required(login_url='user_login')
+def user_profile(request, username):
+    user = get_object_or_404(User, username=username)
+    return render(request, 'account/user/profile.html', {'user': user})
+

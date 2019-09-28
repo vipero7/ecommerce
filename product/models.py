@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.utils.text import slugify
 
 # Create your models here.
 
@@ -11,6 +12,7 @@ class Category(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=100)
+    slug = models.SlugField(max_length=100, default=None)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     available = models.BooleanField(default=True)
     image = models.ImageField(upload_to='products/%y/%m/%d', blank=False)
@@ -20,3 +22,11 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+    def _get_unique_slug(self):
+        slug = slugify(self.name)
+        return slug
+
+    def save(self, *args, **kwargs):
+        self.slug = self._get_unique_slug()
+        super().save(*args, **kwargs)
