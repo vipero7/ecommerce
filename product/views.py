@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from .forms import AddCategoryForm, AddProductForm, ProductEditForm
 from product.models import Category, Product
 from django.contrib.admin.views.decorators import staff_member_required
+from cart.forms import CartAddProductForm
 import pdb
 #Home View
 def home(request):
@@ -94,6 +95,8 @@ def delete_product(request, id):
 
 
 def product_detail(request, product):
-    product = get_object_or_404(Product, name=product)
-    return render(request, 'account/product_detail.html', {'product': product})
+    product = get_object_or_404(Product, slug=product)
+    cart_product_form = CartAddProductForm()
+    return render(request, 'account/product_detail.html', {'product': product,
+                                                            'cart_product_form': cart_product_form})
 

@@ -11,7 +11,7 @@ class Category(models.Model):
         return self.name
 
 class Product(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=100, default=None)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     available = models.BooleanField(default=True)
@@ -30,3 +30,6 @@ class Product(models.Model):
     def save(self, *args, **kwargs):
         self.slug = self._get_unique_slug()
         super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('product:product_detail', args=[self.slug])

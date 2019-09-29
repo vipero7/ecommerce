@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'account.apps.AccountConfig',
     'product.apps.ProductConfig',
     'django_cleanup',
+    'cart.apps.CartConfig',
 ]
 
 MIDDLEWARE = [
@@ -138,3 +139,5 @@ LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'login'
 
 LOGOUT_URL = 'logout'
+
+CART_SESSION_ID  = 'cart'

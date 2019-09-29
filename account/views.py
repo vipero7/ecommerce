@@ -92,5 +92,8 @@ def user_registration(request):
 @login_required(login_url='user_login')
 def user_profile(request, username):
     user = get_object_or_404(User, username=username)
-    return render(request, 'account/user/profile.html', {'user': user})
+    if request.user.username == user.username:
+        return render(request, 'account/user/profile.html', {'user': user})
+    else:
+        return HttpResponse("You are not Authorized")
 
