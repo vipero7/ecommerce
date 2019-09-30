@@ -35,7 +35,11 @@
 						<div class="contactinfo">
 							<ul class="nav nav-pills">
 								<li><a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
-								<li><a href="#"><i class="fa fa-envelope"></i> info@domain.com</a></li>
+								{% with total_items=cart|length %}
+									{% if cart|length > 0 %}
+										<li><a href="{% url 'cart:cart_detail' %}"><i class="fa fa-shopping-cart"></i> Your cart: {{ total_items}} item{{ total_items|pluralize }}, ${{ cart.get_total_price }}</a></li>
+									{% endif %}
+								{% endwith %}
 							</ul>
 						</div>
 					</div>
