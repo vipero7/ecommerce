@@ -1,1 +1,39 @@
-real
+{% extends 'account/base.html' %}
+{% load static %}
+{% block title %}Shop{% endblock %}
+{% block content %}
+<section id="cart_items">
+		<div class="container">
+			<div class="table-responsive cart_info">
+				<table class="table table-condensed">
+					<thead>
+						<tr class="cart_menu">
+                            <th>Order ID</th>
+                            <th>Image</th>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>Price</th>
+                            <th>Progress</th>
+						</tr>
+					</thead>
+					<tbody>
+                        {% for items in orders %}
+                                <tr>
+                                    <td>{{ items.order_id }}</td>
+                                    <td>
+                                        <a href="{{ items.product.get_absolute_url }}"><img src="{{ items.product.image.url }}" alt="{{ product.name }}" width="100px" height="100px"></a>
+                                    </td>
+                                    <td>{{ items.product.name }}</td>
+                                    <td>{{ items.quantity }}</td>
+                                    <td class="num">$ {{ items.price }}</td>
+                                    <td class="num">${{ items.get_cost }}</td>
+                                    <td>{% if items.order.progress == 'S' %}Shipped{% elif items.order.progress == 'PP' %}Procressing{% else %}Pending{% endif %}</td>
+                                </tr>
+                        {% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section> <!--/#cart_items-->
+{% endblock %}

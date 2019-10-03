@@ -1,6 +1,7 @@
 from django.db import models
 from product.models import Product
 from account.models import Profile
+from decimal import Decimal
 
 # Create your models here.
 PROGRESS_CHOICES = (
@@ -16,6 +17,7 @@ class Order(models.Model):
     postal_code = models.CharField(max_length=20)
     city = models.CharField(max_length=100)
     created = models.DateTimeField(auto_now_add=True)
+    phone = models.CharField(max_length=10, default=0, blank=False)
     updated = models.DateTimeField(auto_now_add=True)
     paid = models.BooleanField(default=False)
     progress = models.CharField(max_length=10, choices=PROGRESS_CHOICES, default='P')
@@ -34,7 +36,7 @@ class OrderItem(models.Model):
     product = models.ForeignKey(Product, related_name='order_items', on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.PositiveIntegerField(default=1)
-
+    
     def __str__(self):
         return '{}' .format(self.id)
 

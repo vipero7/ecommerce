@@ -7,8 +7,10 @@ from django.utils.text import slugify
 class Category(models.Model):
     name = models.CharField(max_length=50)
 
+
     def __str__(self):
         return self.name
+
 
 class Product(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -21,7 +23,7 @@ class Product(models.Model):
 
 
     def __str__(self):
-        return self.name
+        return '{} {}' .format (self.id, self.name)
 
     def _get_unique_slug(self):
         slug = slugify(self.name)
