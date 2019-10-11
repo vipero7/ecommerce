@@ -8,7 +8,8 @@ import pdb
 def home(request):
     products = Product.objects.all()
     categories = Category.objects.all()
-    return render(request, 'account/home.html', {'products': products, 'categories': categories})
+    cart_product_form = CartAddProductForm()
+    return render(request, 'account/home.html', {'products': products, 'categories': categories, 'cart_product_form': cart_product_form})
 
 
 #Category Views

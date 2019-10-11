@@ -4,31 +4,31 @@
 
 {% block content %}
 <form action="/product/{{ product.id }}/update" method="POST" enctype="multipart/form-data">
-    <div>
-        <label>Product Name:</label>
-        {{ form.name }}
-        <br>
-        <label>Category:</label>
-        {{ form.category }}
-        <br>
-        <label>Price:</label>
-        {{ form.price }}
-        <br>
-        <label>Available:</label>
-        {{ form.available }}
-        <br>
-        <label>Image:</label>
-        {{ form.image }}
-        <br>
-        <label>Description:</label>
-        <br>
-        {{ form.description}}
-        <br>
-        <br>
-        {% csrf_token %}
-    </div>
-    <div>
-        <input type="submit" value="UPDATE" class="btn btn-primary">
-    </div>
+<div>
+    <label>Product Name:</label>
+    {{ form.name }}
+    <br>
+    <label>Category:</label>
+    {{ form.category }}
+    <br>
+    <label>Price:</label>
+    {{ form.price }}
+    <br>
+    <label>Available:</label>
+    {{ form.available }}
+    <br>
+    <label>Image:</label>
+    {{ form.image }}
+    <br>
+    <label>Description:</label>
+    <br>
+    {{ form.description}}
+    <br>
+    <br>
+    {% csrf_token %}
+</div>
+<div>
+    <input type="submit" value="UPDATE" class="btn btn-primary">
+</div>
 </form>
 {% endblock %}

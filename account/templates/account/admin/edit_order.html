@@ -1,0 +1,17 @@
+{% extends 'account/admin/base.html' %}
+{% load static %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    
+    <div>
+        <form action="/orders/{{ order.id }}/update" method="POST">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <br>
+            <div>
+                <input type="submit" value="UPDATE" class="btn btn-primary">
+            </div>
+        </form>
+    </div>
+{% endblock %}

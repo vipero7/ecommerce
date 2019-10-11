@@ -82,7 +82,7 @@ def user_registration(request):
             new_user.set_password(user_form.cleaned_data['password'])
             new_user.save()
             login(request, new_user)
-            pdb.set_trace()
+            # pdb.set_trace()
             Profile.objects.create(user=new_user)
             return redirect('home')
     else:

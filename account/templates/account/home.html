@@ -105,7 +105,13 @@
                                         <a href="{{ product.get_absolute_url }}"><img src="{{ product.image.url }}" alt="{{ product.name }}" /></a>
                                         <h2>${{ product.price }}</h2>
                                         <p>{{ product.name }}</p>
-                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                        <form action="{% url 'cart:cart_add' product.id %}" method="POST">
+                                            <p class="btn btn-default">{{ cart_product_form.quantity }}</p>
+                                            {% csrf_token %}
+                                            <br>
+                                            <br>
+                                            <button type="submit" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                        </form>
                                     </div>
                             </div>
                             <div class="choose">
