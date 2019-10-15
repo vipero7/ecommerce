@@ -59,24 +59,6 @@ class OrderEditForm(forms.ModelForm):
             
         }
 
-class OrderItemEditForm(forms.ModelForm):
-    class Meta:
-        model = OrderItem
-        fields = ['product', 'price', 'quantity']
-
-        widgets = {
-            'product': forms.TextInput( 
-                attrs = {
-                    'class': 'form-control col-md-7',
-                    'style': 'border-color:black',
-                }
-            ),
-            'price': forms.TextInput(
-                attrs = {
-                    'class': 'form-control col-md-7',
-                    'style': 'border-color:black',
-                }
-            ),
-            
-        }
+class OrderItemEditForm(forms.Form):
+    quantity = forms.CharField(max_length=2)
 

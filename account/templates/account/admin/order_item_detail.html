@@ -12,9 +12,9 @@
                         <th>Product</th>
                         <th>Name</th>
                         <th>Price</th>
-                        <th>Quantity</th>
+                        <th colspan="2">Quantity</th>
                         <th>Total Price</th>
-                        <th colspan="2">Options</th>
+                        <th>Options</th>
                     </tr>
                 </thead>
                 <tbody align="center">
@@ -24,10 +24,19 @@
                         <td><img src="{{ order.product.image.url }}" width="100px" height="100px"></td>
                         <td>{{ order.product }}</td>
                         <td>{{ order.price }}</td>
-                        <td>{{ order.quantity }}</td>
+                        <td>
+                            <form action="/orders/{{ order.id }}/update_order_item" method="POST" class="form-control">
+                                <select name="quantity">
+                                    {% for i in range %}
+                                    <option value="{{ i }}"{% if i == order.quantity %}selected{% endif %}>{{ i }}</option>
+                                    {% endfor %}
+                                </select>
+                                {% csrf_token %}
+                                <td><button type="submit" class="btn btn-success">Update</button></td>
+                            </form>    
+                        </td>
                         <td>{{ order.get_cost }}</td>
-                        <td><a href="{{ order.id }}/edit" class="btn btn-primary">Edit</a></td>
-                        <td><a href="{{ order.id }}/delete" class="btn btn-danger">Delete</a></td>
+                        <td><a href="/orders/{{ order.id }}/delete_order_item" class="btn btn-danger">Delete</a></td>
                         </td>
                     </tr>
                     {% endfor %}

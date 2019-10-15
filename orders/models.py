@@ -2,6 +2,7 @@ from django.db import models
 from product.models import Product
 from account.models import Profile
 from decimal import Decimal
+from django.urls import reverse
 
 # Create your models here.
 PROGRESS_CHOICES = (
@@ -30,6 +31,7 @@ class Order(models.Model):
 
     def get_total_cost(self):
         return sum(item.get.cost() for item in self.items.all())
+        
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
@@ -42,6 +44,10 @@ class OrderItem(models.Model):
 
     def get_cost(self):
         return self.price * self.quantity
+
+    def get_absolute_url(self):
+        return reverse('orders:order_detail', args=[self.slug])
+
 
 
 class UserOrders(models.Model):

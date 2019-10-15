@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import OrderItem, UserOrders, Order
-from .forms import OrderCreateForm, OrderEditForm
+from .forms import OrderCreateForm, OrderEditForm, OrderItemEditForm
 from cart.cart import Cart
 from django.contrib.auth.models import User
 from django.contrib.admin.views.decorators import staff_member_required
 import pdb
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 # Create your views here.
 
@@ -52,7 +54,7 @@ def order_lists_admin(request):
 def edit_order(request, id):
     order = get_object_or_404(Order, id=id)
     form = OrderEditForm(instance=order)
-    return render(request, 'account/admin/edit_order.html', {'form': form, 'order': order, 'order_item': order_item})
+    return render(request, 'account/admin/edit_order.html', {'form': form, 'order': order})
 
 
 @staff_member_required(login_url='/account')
@@ -75,5 +77,22 @@ def delete_order(request, id):
 @staff_member_required(login_url='/account')
 def order_detail(request, id):
     order = get_object_or_404(Order, id=id)
-    order_item = OrderItem.objects.filter(order=order)
-    return render(request, 'account/admin/order_item_detail.html', {'order_item': order_item})
+    order_item = OrderItem.objects.filter(order=order)  
+    order_item_form = OrderItemEditForm()
+    return render(request, 'account/admin/order_item_detail.html', {'order_item': order_item, 'order_item_form': order_item_form, 'range': range(1,21)})
+
+@staff_member_required(login_url='/account')
+def update_order_item(request, id):
+    order_item = get_object_or_404(OrderItem, id=id)
+    form = OrderItemEditForm(request.POST)
+    if form.is_valid():
+        order_item.quantity = form.cleaned_data['quantity']
+        order_item.save()
+        return redirect('orders:order_detail', id=order_item.order.id)
+
+
+@staff_member_required(login_url='/account')
+def delete_order_item(request, id):
+    order_item = get_object_or_404(OrderItem, id=id)
+    order_item.delete()
+    return redirect('orders:order_detail', id=order_item.order.id)

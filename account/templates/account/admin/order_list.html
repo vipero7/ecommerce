@@ -23,13 +23,13 @@
                 {% for order in orders %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
-                    <td><a href="{% url 'orders:order_detail' order.id %}">{{ order.id }}</a></td>
+                    <td><a href="/orders/{{ order.id }}">{{ order.id }}</a></td>
                     <td>{{ order.first_name }} {{ order.last_name }}</td>
                     <td>{{ order.phone }}</td>
                     <td>{% if order.paid %}Paid{% else %}Unpaid{% endif %}</td>
                     <td>{% if order.progress == 'S' %}Shipped{% elif order.progress == 'PP'%}Processing{% else %}Pending{% endif %}</td>
-                    <td><a href="{{ order.id }}/edit" class="btn btn-primary">Edit</a></td>
-                    <td><a href="{{ order.id }}/delete" class="btn btn-danger">Delete</a></td>
+                    <td><a href="/orders/{{ order.id }}/edit" class="btn btn-primary">Edit</a></td>
+                    <td><a href="/orders/{{ order.id }}/delete" class="btn btn-danger">Delete</a></td>
                     </td>
                 </tr>
                 {% endfor %}
